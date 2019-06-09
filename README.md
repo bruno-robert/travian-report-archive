@@ -1,0 +1,2 @@
+# travian-report-archive
+Wouldn't you like to be able to look at and manipulate the mass of data that is your reports? Well, now you can! Travian Report Archive (TRA) automatically saves reports as you open them. It's smart, it won't save a report twice. And at any time you can export all your data as a .CSV to further analyse it in your favourite spreadsheet software or some custom Python script etc.
