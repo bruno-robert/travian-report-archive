@@ -4,7 +4,7 @@
 // @version     1.0.1
 // @description Automatically saves reports locally on browser when you open them and exports as CSV for analysis in excel etc. currently supports raids, and scouting(resources and troops)
 // @author      Bruno Robert
-// @liscence    GPLv3
+// @liscence    GPL(v3)
 // @include     *://*.travian.*
 // @include     *://*/*.travian.*
 // @exclude     *://*.travian*.*/hilfe.php*
