@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Travian Report Archive
 // @namespace   https://greasyfork.org/en/scripts/367709-travian-report-archive
-// @version     1.0.1
+// @version     1.0.2
 // @description Automatically saves reports locally on browser when you open them and exports as CSV for analysis in excel etc. currently supports raids, and scouting(resources and troops)
 // @author      Bruno Robert
 // @liscence    GPL(v3)
@@ -135,8 +135,8 @@ function gatherResourceData() {
 
     //-----Determining what kind of report it is -----
     let subject = document.getElementById('subject');
-    let textHeader = subject.getElementsByClassName('header text');
-    let subjectText = textHeader[0].innerHTML;//the text written in the subject container
+    //let textHeader = subject.getElementsByClassName('header text');
+    let subjectText = subject.innerHTML;//the text written in the subject container
     if(subjectText.includes(" espionne ")) {
         reportType = 2;//if the report type is spying
     } else if(subjectText.includes(" pille ")) {
@@ -146,9 +146,9 @@ function gatherResourceData() {
     }
 
     //-----Getting the Date and Time -----
-    let dateTimeBlock = document.getElementById('time');
-    textHeader = dateTimeBlock.getElementsByClassName('header text');
-    let dateTimeText = textHeader[0].innerText;
+    let dateTimeBlock = document.getElementByClass('time');
+    //textHeader = dateTimeBlock.getElementsByClassName('header text');
+    let dateTimeText = dateTimeBlock.innerText;
     dateTimeTemp[0] = Number(dateTimeText.split('.')[0]);
     dateTimeTemp[1] = Number(dateTimeText.split('.')[1]);
     dateTimeTemp[2] = Number(dateTimeText.split('.')[2].split(',')[0]);
@@ -272,9 +272,9 @@ function gatherResourceData() {
 function getReportType() {
     //-----Determining what kind of report it is -----
     let reportType = -1;//0 = raid, 1 = scout resources + troops, 2 = scout troops + defenses, 3 = attack, 4 = defense, 5 = adventure, 6 = trade, 7 = unknown/error, -1 = default value (nothing)
-    let subject = document.getElementById('subject');
-    let textHeader = subject.getElementsByClassName('header text');
-    let subjectText = textHeader[0].innerHTML;//the text written in the subject container
+    let subject = document.getElementsByClassName('subject');
+    //let textHeader = subject.getElementsByClassName('header text');
+    let subjectText = subject[0].innerHTML;//the text written in the subject container
     if(subjectText.includes(reportSubjects[lang][0])) {//raid
         reportType = 0;
     } else if(subjectText.includes(reportSubjects[lang][1])) {//scout ...
@@ -307,9 +307,9 @@ function getReportType() {
 function getReportDateTime() {
     //-----Getting the Date and Time -----
     let dateTimeTemp = [];
-    let dateTimeBlock = document.getElementById('time');
-    let textHeader = dateTimeBlock.getElementsByClassName('header text');
-    let dateTimeText = textHeader[0].innerText;
+    let dateTimeBlock = document.getElementsByClassName('time')[0];
+    //let textHeader = dateTimeBlock.getElementsByClassName('header text');
+    let dateTimeText = dateTimeBlock.innerText;
     dateTimeTemp[0] = Number(dateTimeText.split('.')[0]);
     dateTimeTemp[1] = Number(dateTimeText.split('.')[1]);
     dateTimeTemp[2] = Number(dateTimeText.split('.')[2].split(',')[0]);
@@ -431,9 +431,9 @@ function getTroops() {
     let maxTroopClasses = 11;
 
     //oasis only have 10 types of animals so we check if this is an oasis
-    let subject = document.getElementById('subject');
-    let textHeader = subject.getElementsByClassName('header text');
-    let subjectText = textHeader[0].innerText;//the text written in the subject container
+    let subject = document.getElementsByClassName('subject');
+    //let textHeader = subject.getElementsByClassName('header text');
+    let subjectText = subject[0].innerHTML;//the text written in the subject container
     if(subjectText.includes(reportSubjects[lang][7])){
         maxTroopClasses = 10;
     }
@@ -474,7 +474,7 @@ function getRaidedResources() {
     let resourcesStolen = [0, 0, 0, 0, 0];//W, C, I, Crop, maxCarry
     //getting data on resources
     for(let i = 0; i < 4; i++) {
-        resourcesStolen[i] = Number(goodsBlocks[0].getElementsByClassName('rArea')[i].innerText);
+        resourcesStolen[i] = Number(goodsBlocks[0].getElementsByClassName('value')[i].innerText);
     }
     let maxCarry = goodsBlocks[0].getElementsByClassName('carry')[0].innerText;
     resourcesStolen[4] = Number(maxCarry.split('/')[1]);//maximum carry power
